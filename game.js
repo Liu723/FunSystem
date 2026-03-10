@@ -5,6 +5,9 @@ const missEl = document.getElementById('miss');
 const arena = document.getElementById('arena');
 const target = document.getElementById('target');
 const overlay = document.getElementById('overlay');
+const speedRange = document.getElementById('speedRange');
+const speedValue = document.getElementById('speedValue');
+const historyBody = document.getElementById('historyBody');
 
 let score = 0;
 let miss = 0;
@@ -12,6 +15,8 @@ let timeLeft = 30;
 let gameTimer = null;
 let moveTimer = null;
 let isRunning = false;
+let moveInterval = Number(speedRange.value);
+const gameHistory = [];
 
 function randomPosition() {
   const maxX = arena.clientWidth - target.offsetWidth;
@@ -27,6 +32,11 @@ function clearTimers() {
   clearInterval(moveTimer);
 }
 
+function startMoveTimer() {
+  clearInterval(moveTimer);
+  moveTimer = setInterval(randomPosition, moveInterval);
+}
+
 function rankMessage(finalScore) {
   if (finalScore >= 35) return '🔥 反应超神，手速王者！';
   if (finalScore >= 25) return '🚀 很强！继续冲击更高分。';
@@ -34,15 +44,47 @@ function rankMessage(finalScore) {
   return '🌱 别灰心，多来几局就能进步！';
 }
 
+function renderHistory() {
+  if (gameHistory.length === 0) {
+    historyBody.innerHTML = '<tr><td colspan="4" class="empty">暂无记录，先来一局！</td></tr>';
+    return;
+  }
+
+  const ranked = [...gameHistory].sort((a, b) => b.score - a.score || a.miss - b.miss);
+  historyBody.innerHTML = ranked
+    .map(
+      (item, index) => `
+      <tr>
+        <td>#${index + 1}</td>
+        <td>${item.score}</td>
+        <td>${item.miss}</td>
+        <td>${item.speed}</td>
+      </tr>
+    `
+    )
+    .join('');
+}
+
+function saveCurrentResult() {
+  gameHistory.push({
+    score,
+    miss,
+    speed: moveInterval
+  });
+  renderHistory();
+}
+
 function endGame() {
   isRunning = false;
   clearTimers();
+  saveCurrentResult();
   startBtn.textContent = '再来一局';
   overlay.hidden = false;
   overlay.innerHTML = `
     <div>
       <p><strong>时间到！</strong></p>
       <p>最终得分：<strong>${score}</strong>，失误：<strong>${miss}</strong></p>
+      <p>本局速度：<strong>${moveInterval}ms</strong></p>
       <p>${rankMessage(score)}</p>
     </div>
   `;
@@ -72,12 +114,20 @@ function startGame() {
   randomPosition();
   clearTimers();
   gameTimer = setInterval(tick, 1000);
-  moveTimer = setInterval(randomPosition, 650);
+  startMoveTimer();
 }
 
 startBtn.addEventListener('click', () => {
   if (!isRunning) {
     startGame();
+  }
+});
+
+speedRange.addEventListener('input', () => {
+  moveInterval = Number(speedRange.value);
+  speedValue.textContent = String(moveInterval);
+  if (isRunning) {
+    startMoveTimer();
   }
 });
 
@@ -102,4 +152,6 @@ window.addEventListener('resize', () => {
 });
 
 overlay.hidden = false;
+speedValue.textContent = String(moveInterval);
+renderHistory();
 randomPosition();

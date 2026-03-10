@@ -40,8 +40,28 @@ ol {
   line-height: 1.6;
 }
 
+.speed-control {
+  margin: 12px 0 8px;
+}
+
+.speed-control label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.speed-control input {
+  width: 100%;
+}
+
+.speed-control small {
+  display: block;
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
 .btn {
-  margin-top: 8px;
+  margin-top: 10px;
   border: none;
   background: linear-gradient(120deg, #ff6b6b, #ff9f43);
   color: white;
@@ -103,12 +123,44 @@ ol {
   background: rgba(10, 10, 24, 0.35);
 }
 
+.overlay[hidden] {
+  display: none;
+}
+
+.history {
+  margin-top: 16px;
+}
+
+.history h2 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th,
+td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.empty {
+  opacity: 0.85;
+}
+
 @media (max-width: 880px) {
   .app {
     grid-template-columns: 1fr;
   }
-}
-
-.overlay[hidden] {
-  display: none;
 }

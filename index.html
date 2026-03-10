@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>快手反应训练营</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel intro">
+        <h1>⚡ 快手反应训练营</h1>
+        <p>一个用原生 HTML/CSS/JS 搭建的轻量小游戏。</p>
+        <h2>玩法说明</h2>
+        <ol>
+          <li>点击「开始挑战」，游戏时长为 <strong>30 秒</strong>。</li>
+          <li>红色目标会在场地内随机移动，<strong>点击命中 +1 分</strong>。</li>
+          <li>每次点空白区域会被记作一次失误。</li>
+          <li>结束后会显示你的成绩和评级，继续点击「再来一局」即可重开。</li>
+        </ol>
+        <button id="startBtn" class="btn">开始挑战</button>
+      </section>
+
+      <section class="panel game-panel">
+        <div class="hud">
+          <div>⏱️ 剩余时间：<span id="time">30</span>s</div>
+          <div>🎯 得分：<span id="score">0</span></div>
+          <div>❌ 失误：<span id="miss">0</span></div>
+        </div>
+
+        <div id="arena" class="arena" aria-label="游戏区域">
+          <button id="target" class="target" aria-label="目标"></button>
+          <p id="overlay" class="overlay">点击开始按钮，准备好后开冲！</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

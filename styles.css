@@ -108,3 +108,7 @@ ol {
     grid-template-columns: 1fr;
   }
 }
+
+.overlay[hidden] {
+  display: none;
+}

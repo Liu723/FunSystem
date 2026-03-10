@@ -1,0 +1,9 @@
+{
+  "name": "funsystem-reaction-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Quick reaction mini-game with zero dependencies",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

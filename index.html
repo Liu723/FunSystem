@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>快手反应训练营</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel intro">
+        <h1>⚡ 快手反应训练营</h1>
+        <p>一个用原生 HTML/CSS/JS 搭建的轻量小游戏。</p>
+        <h2>玩法说明</h2>
+        <ol>
+          <li>点击「开始挑战」，游戏时长为 <strong>30 秒</strong>。</li>
+          <li>红色目标会在场地内随机移动，<strong>点击命中 +1 分</strong>。</li>
+          <li>每次点空白区域会被记作一次失误。</li>
+          <li>你可以调节“红球跳动速度”，速度越快难度越高。</li>
+          <li>结束后会记录本次成绩并按分数自动排名。</li>
+        </ol>
+
+        <div class="speed-control">
+          <label for="speedRange">红球跳动速度：<span id="speedValue">650</span> ms</label>
+          <input id="speedRange" type="range" min="250" max="1200" step="50" value="650" />
+          <small>数值越小跳动越快</small>
+        </div>
+
+        <button id="startBtn" class="btn">开始挑战</button>
+      </section>
+
+      <section class="panel game-panel">
+        <div class="hud">
+          <div>⏱️ 剩余时间：<span id="time">30</span>s</div>
+          <div>🎯 得分：<span id="score">0</span></div>
+          <div>❌ 失误：<span id="miss">0</span></div>
+        </div>
+
+        <div id="arena" class="arena" aria-label="游戏区域">
+          <button id="target" class="target" aria-label="目标"></button>
+          <p id="overlay" class="overlay">点击开始按钮，准备好后开冲！</p>
+        </div>
+
+        <section class="history">
+          <h2>📊 历史战绩排行（按分数）</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>名次</th>
+                <th>得分</th>
+                <th>失误</th>
+                <th>速度(ms)</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody">
+              <tr>
+                <td colspan="4" class="empty">暂无记录，先来一局！</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
